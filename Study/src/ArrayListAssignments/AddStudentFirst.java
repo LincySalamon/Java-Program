@@ -1,0 +1,37 @@
+package ArrayListAssignments;
+
+import java.util.Scanner;
+
+public class AddStudentFirst {
+	public void addstudentfirst() {
+		Scanner sc = new Scanner(System.in);
+		String name;
+		int rollNo;
+		String dOB;
+		String email;
+		int totalMarks;
+		
+		Student stuInfo = new Student();
+		
+		System.out.println("Enter the name: ");
+		name = sc.nextLine();
+		System.out.println("Enter the roll number: ");
+		rollNo = sc.nextInt();
+		sc.nextLine();
+		System.out.println("Enter the date of birth: ");
+		dOB = sc.nextLine();
+		System.out.println("Enther the email address: ");
+		email = sc.nextLine();
+		System.out.println("Enter the Total Marks: ");
+		totalMarks = sc.nextInt();
+		stuInfo.setName(name);
+		stuInfo.setRollNo(rollNo);
+		stuInfo.setdOB(dOB);
+		stuInfo.setEmail(email);
+		stuInfo.setTotalMarks(totalMarks);
+		
+		StudentDataCreation.studentInfo.add(0,stuInfo);
+		ViewStudentDetails.viewstudentdetails();
+	}
+
+}
