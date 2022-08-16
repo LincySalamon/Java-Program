@@ -40,7 +40,7 @@ public class GiftCard {
 
 				if (custometDetails.containsKey(accountID)) {
 					amountDeduction(custometDetails, giftBalance, accountID);
-					giftCard.add(new GiftCardDetail(accountID, pinNum, giftBalance, true, false));
+					giftCard.add(new GiftCardDetail(accountID, pinNum, giftBalance, true, false,0,"Normal"));
 					printGiftCardSummary(giftCard);
 					printAccountSummary(custometDetails);
 				} else {
@@ -106,6 +106,7 @@ public class GiftCard {
 
 				updateGiftCardWhenPurchsed(pin, cardNum, purchaseamount);
 				printTransactionSummary();
+				printGiftCardSummary(giftCard);
 				break;
 			}
 			case 7: {
@@ -174,8 +175,26 @@ public class GiftCard {
 				if (gd.status && !gd.blocked) {
 					if (gd.cardNo == cardNum && gd.pin == pin) {
 						transaction.add(new TransactionSummary(cardNum, purchaseamount));
-						long balance = gd.giftbalance - purchaseamount;
+						long balance = gd.giftbalance - purchaseamount; 
 						gd.giftbalance = balance;
+						if(purchaseamount >= 500)
+						{
+							gd.rewardoints += 50;
+							if(gd.rewardoints >= 200 && gd.cardtype.equals("Normal"))
+							{
+								gd.cardtype = "Silver";
+								gd.rewardoints = 0;
+							}
+							else if(gd.rewardoints >=200 && gd.cardtype.equals("Silver"))
+							{
+								gd.cardtype = "Gold";
+								gd.rewardoints = 0;
+							}
+							else if(gd.rewardoints >=200 && gd.cardtype.equals("Gold"))
+							{
+								gd.cardtype = "Platinum";
+							}
+						}
 					}
 				}
 			}
@@ -233,7 +252,7 @@ public class GiftCard {
 
 	private void printGiftCardSummary(ArrayList<GiftCardDetail> giftCard) {
 		System.out.println("-------------GIFT CARD SUMMARY-------------------");
-		System.out.println("Card No.\tCust Id\tPIN\tGift Balance\tStatus\tBlocked/not");
+		System.out.println("Card No.\tCust Id\tPIN\tGift Balance\tStatus\tBlocked/not\tReward\tCardType");
 		for (GiftCardDetail gd : giftCard) {
 			String status = null;
 			if (gd.status == true) {
@@ -247,7 +266,7 @@ public class GiftCard {
 			else
 				blocked = "Not";
 			System.out.print(gd.cardNo + "\t\t" + gd.custID + "\t" + gd.pin + "\t\t" + gd.giftbalance + "\t" + status
-					+ "\t" + blocked);
+					+ "\t" + blocked+"\t\t"+gd.rewardoints+"\t"+gd.cardtype);
 			System.out.println();
 		}
 		System.out.println("*****************************************************");

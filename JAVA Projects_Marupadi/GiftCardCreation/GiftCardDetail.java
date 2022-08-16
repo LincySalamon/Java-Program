@@ -8,13 +8,17 @@ public class GiftCardDetail {
 	long giftbalance;
 	boolean status;
 	boolean blocked;
+	int rewardoints;
+	String cardtype;
 
-	GiftCardDetail(int custID, int pin, long giftbalance, boolean status, boolean blocked) {
+	GiftCardDetail(int custID, int pin, long giftbalance, boolean status, boolean blocked, int rewardoints, String cardType) {
 		this.custID = custID;
 		this.pin = pin;
 		this.giftbalance = giftbalance;
 		this.status = status;
 		this.blocked = blocked;
+		this.rewardoints = rewardoints;
+		this.cardtype = cardType;
 		cardNo = CARDNUMBER++;
 	}
 }
